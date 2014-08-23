@@ -29,6 +29,6 @@ func MakeTrapezoid(a, b, c, d float64) Mf {
 // Maker funciton of the Triangular membership function
 func MakeTriangular(a, b, c float64) Mf {
 	return func(x float64) float64 {
-		return
+		return math.Max(math.Min(((x-a)/(b-a)), ((c-x)/(c-b))), 0)
 	}
 }
