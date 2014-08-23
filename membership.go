@@ -32,3 +32,12 @@ func MakeTriangular(a, b, c float64) Mf {
 		return math.Max(math.Min(((x-a)/(b-a)), ((c-x)/(c-b))), 0)
 	}
 }
+
+// Maker function of the Mapped function, the mapped function
+// is used when there is not a way to know how the membership of an item
+// was calculated but the membership is known.
+func MakeMapped(m map[float64]float64) Mf {
+	return func(x float64) float64 {
+		return m[x]
+	}
+}
