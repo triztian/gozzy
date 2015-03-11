@@ -20,3 +20,20 @@ func TestLinspace(t *testing.T) {
 		}
 	}
 }
+
+func TestClip(t *testing.T) {
+	x := 5.0
+	a := []float64{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+	e := []float64{1, 2, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 3, 2, 1}
+	r := clip(a, x)
+
+	if len(e) != len(e) {
+		t.Error("Unexpected length: %d", len(r))
+	}
+
+	for i := 0; i < len(r); i++ {
+		if r[i] != e[i] {
+			t.Error("Unexpected element: %v -> %v, should be %v", i, r[i], e[i])
+		}
+	}
+}
