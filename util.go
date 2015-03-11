@@ -8,11 +8,13 @@ type Range [1]float64
 
 // Generate a linear space within the given range
 func linspace(a, b float64, n int) []float64 {
-	var s []float64
-	var d float64 = (b - a) / float64(n-1)
+	var (
+		s []float64
+		d float64 = (b - a) / float64(n)
+	)
 
 	s = append(s, a)
-	for i := 1; i < n; i++ {
+	for i := 1; i <= n; i++ {
 		s = append(s, s[i-1]+d)
 	}
 
