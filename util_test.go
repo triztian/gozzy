@@ -1,14 +1,15 @@
 package gozzy
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
 func TestLinspace(t *testing.T) {
 	a, b := 0.0, 5.0
 	n := 10
 	expected := []float64{0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0}
 	lin := linspace(a, b, n)
-	t.Log("Linspace (%f, %f, %v): %v\n", a, b, n, lin)
-	t.Log("Expected (%f, %f, %v): %v\n", a, b, n, expected)
 
 	if len(lin) != len(expected) {
 		t.Error("Unexpected length: %d", len(lin))
@@ -35,5 +36,25 @@ func TestClip(t *testing.T) {
 		if r[i] != e[i] {
 			t.Error("Unexpected element: %v -> %v, should be %v", i, r[i], e[i])
 		}
+	}
+}
+
+func TestFuncMerge(t *testing.T) {
+	x := 1.0
+	bin := math.Max
+	fa := func(x float64) float64 {
+		return x + 1
+	}
+
+	fb := func(x float64) float64 {
+		return x + 100
+	}
+	e := 101.0
+
+	fr := funcMerge(fa, fb, bin)
+	r := fr(x)
+
+	if r != e {
+		t.Error("Unexpected result: %v should be %v", r, e)
 	}
 }
