@@ -40,3 +40,11 @@ func funcMerge(fa, fb Mf, bin func(float64, float64) float64) Mf {
 
 	return m
 }
+
+// A function that tests approximation of a value with a given error
+// param: x The value to be tested
+// param: a The base expected value
+// param: err The possible error
+func approx(x, a, err float64) bool {
+	return x >= (a-err) && x <= (a+err)
+}

@@ -27,6 +27,9 @@ func MakeTrapezoid(a, b, c, d float64) Mf {
 }
 
 // Maker funciton of the Triangular membership function
+// param: a Indicates the first base (left to right) of the function (0).
+// param: b Indicates the peak of the function (1)
+// param: c Indicates the seconde base of the function (0)
 func MakeTriangular(a, b, c float64) Mf {
 	return func(x float64) float64 {
 		return math.Max(math.Min(((x-a)/(b-a)), ((c-x)/(c-b))), 0)

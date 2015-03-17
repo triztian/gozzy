@@ -39,3 +39,21 @@ func TestMakeTrapezoid(t *testing.T) {
 		}
 	}
 }
+
+func TestMakeGauss(t *testing.T) {
+	var (
+		sigma, c float64             = 1.0, 5.0
+		mf       Mf                  = MakeGauss(sigma, c)
+		exp      map[float64]float64 = make(map[float64]float64)
+	)
+
+	exp[5.0] = 1.0
+	exp[1.0] = 0.0
+
+	for e, r := range exp {
+		x := mf(e)
+		if approx(x, e, 0.0000030) {
+			t.Errorf("Obtained %v, expected %v", x, r)
+		}
+	}
+}

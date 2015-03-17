@@ -12,12 +12,12 @@ func TestLinspace(t *testing.T) {
 	lin := linspace(a, b, n)
 
 	if len(lin) != len(expected) {
-		t.Error("Unexpected length: %d", len(lin))
+		t.Errorf("Unexpected length: %d", len(lin))
 	}
 
 	for i := 0; i < len(lin); i++ {
 		if lin[i] != expected[i] {
-			t.Error("Unexpected element: %v -> %v, should be %v", i, lin[i], expected[i])
+			t.Errorf("Unexpected element: %v -> %v, should be %v", i, lin[i], expected[i])
 		}
 	}
 }
@@ -29,12 +29,12 @@ func TestClip(t *testing.T) {
 	r := clip(a, x)
 
 	if len(e) != len(e) {
-		t.Error("Unexpected length: %d", len(r))
+		t.Errorf("Unexpected length: %d", len(r))
 	}
 
 	for i := 0; i < len(r); i++ {
 		if r[i] != e[i] {
-			t.Error("Unexpected element: %v -> %v, should be %v", i, r[i], e[i])
+			t.Errorf("Unexpected element: %v -> %v, should be %v", i, r[i], e[i])
 		}
 	}
 }
@@ -55,6 +55,6 @@ func TestFuncMerge(t *testing.T) {
 	r := fr(x)
 
 	if r != e {
-		t.Error("Unexpected result: %v should be %v", r, e)
+		t.Errorf("Unexpected result: %v should be %v", r, e)
 	}
 }
