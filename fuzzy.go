@@ -25,6 +25,15 @@ type FuzzySetT1 struct {
 	m    Mf
 }
 
+// A fuzzy system rule. Rules have the form of:
+// "IF temp IS hot AND energy IS high THEN fan IS on, radiator IS empty"
+// At the moment rules are limited to provide the values for a single perception.
+// which in our example is the perception "fan"
+type Rule struct {
+	antecedent Exp
+	consecuent map[string]Exp
+}
+
 func (op Operation) resolve() FuzzySetT1 {
 	return op.operator(op.a, op.b)
 }
@@ -102,59 +111,4 @@ func (z FuzzySetT1) supreme() (float64, float64) {
 	}
 
 	return sup_x, sup_m
-}
-
-// Obtain the alpha cuts of the fuzzy set.
-// An alpha cut is defined as the membership value that
-// is the same for two **adjecent** elements.
-func (z FuzzySetT1) alphas() []float64 {
-	var a []float64
-	for i, x := range z.U[1:] {
-		mfx := z.m(z.U[i-1])
-		if mfx == z.m(x) {
-			a = append(a, mfx)
-		}
-	}
-	return a
-}
-
-// A fuzzy system rule. Rules have the form of:
-// "IF temp IS hot AND energy IS high THEN fan IS on, radiator IS empty"
-// At the moment rules are limited to provide the values for a single perception.
-// which in our example is the perception "fan"
-type Rule struct {
-	antecedent Exp
-	consecuent map[string]Exp
-}
-
-type MamdamiT1 struct {
-	name     string
-	inputs   map[string]Range
-	outputs  map[string]Range
-	terms    map[string]FuzzySetT1
-	rules    []Rule
-	defuzzer Defuzzer
-}
-
-// Process the given perceptions
-func (s MamdamiT1) process(values Crisp) Crisp {
-	var sets []FuzzySetT1
-
-	for _, rule := range s.rules {
-		sets = append(sets, s.processRule(rule, values))
-	}
-
-	return s.defuzz(sets)
-}
-
-// Process a system rule with the given perceptions
-func (s MamdamiT1) processRule(rule Rule, values Crisp) FuzzySetT1 {
-	res := rule.antecedent.evaluate(values)
-	return res
-}
-
-func (s MamdamiT1) defuzz(sets []FuzzySetT1) Crisp {
-	var response Crisp
-
-	return response
 }
